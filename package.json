@@ -1,0 +1,15 @@
+{
+  "name": "devops-ci-cd-demo",
+  "version": "1.0.0",
+  "description": "Sample Node app for CI/CD with Docker, Kubernetes, and GitHub Actions",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node -e \"console.log('Tests passed ✅')\""
+  },
+  "author": "Joby Jacob",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

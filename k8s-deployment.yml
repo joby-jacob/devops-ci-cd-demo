@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-ci-cd-demo
+  labels:
+    app: devops-ci-cd-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-ci-cd-demo
+  template:
+    metadata:
+      labels:
+        app: devops-ci-cd-demo
+    spec:
+      containers:
+        - name: web
+          image: ghcr.io/joby-jacob/devops-ci-cd-demo:latest
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet: { path: "/", port: 3000 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: "/", port: 3000 }
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-ci-cd-demo
+spec:
+  selector:
+    app: devops-ci-cd-demo
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: ClusterIP
